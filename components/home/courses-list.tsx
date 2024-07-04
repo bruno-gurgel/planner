@@ -1,27 +1,27 @@
-import { getPreviewBooksDTO } from "@/data/books-dto";
+import { getPreviewCoursesDTO } from "@/data/courses-dto";
 import { Button } from "../ui/button";
 import {
   Card,
-  CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
+  CardContent,
+  CardFooter,
 } from "../ui/card";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
-import ReadingActions from "../reading-actions";
+import StudyingActions from "../studying-actions";
 
-export default async function ReadingList() {
-  const { current, next } = await getPreviewBooksDTO();
+export default async function StudyTopics() {
+  const { current, next } = await getPreviewCoursesDTO();
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Books</CardTitle>
+        <CardTitle>Courses</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
-          <h3 className="text-xl font-medium">Currently Reading</h3>
+          <h3 className="text-xl font-medium">Currently Studying</h3>
           {current.length
             ? current.map((item) => (
                 <div
@@ -29,12 +29,17 @@ export default async function ReadingList() {
                   className="flex items-center justify-between"
                 >
                   <div>
-                    <p className="text-lg font-medium">{item.title}</p>
+                    <p className="text-lg font-medium">{item.name}</p>
+                    {item.author ? (
+                      <p className="text-muted-foreground">{item.author}</p>
+                    ) : null}
 
-                    <p className="text-muted-foreground">{item.author}</p>
+                    {item.platform ? (
+                      <p className="text-muted-foreground">{item.platform}</p>
+                    ) : null}
                   </div>
                   <div className="flex gap-2">
-                    <ReadingActions id={item.id} />
+                    <StudyingActions id={item.id} />
                   </div>
                 </div>
               ))
@@ -49,12 +54,17 @@ export default async function ReadingList() {
                   className="flex items-center justify-between"
                 >
                   <div>
-                    <p className="text-lg font-medium">{item.title}</p>
+                    <p className="text-lg font-medium">{item.name}</p>
+                    {item.author ? (
+                      <p className="text-muted-foreground">{item.author}</p>
+                    ) : null}
 
-                    <p className="text-muted-foreground">{item.author}</p>
+                    {item.platform ? (
+                      <p className="text-muted-foreground">{item.platform}</p>
+                    ) : null}
                   </div>
                   <div className="flex gap-2">
-                    <ReadingActions id={item.id} done />
+                    <StudyingActions id={item.id} done />
                   </div>
                 </div>
               ))
@@ -64,11 +74,11 @@ export default async function ReadingList() {
       </CardContent>
       <CardFooter className="flex flex-col gap-3">
         <Button variant="outline" className="w-full" asChild>
-          <Link href="/reading/add">Add Book</Link>
+          <Link href="/courses/add">Add Course</Link>
         </Button>
 
         <Button className="w-full" asChild>
-          <Link href="/reading">Details</Link>
+          <Link href="/courses">Details</Link>
         </Button>
       </CardFooter>
     </Card>
