@@ -14,7 +14,6 @@ export class User {
         this.email = user.email;
       });
     } catch (error) {
-      console.error(error);
       throw error;
     }
   }

@@ -15,7 +15,6 @@ import ReminderLine from "../reminder-line";
 
 export default async function Reminders() {
   const reminders = await getPreviewRemindersDTO();
-  console.log({ reminders });
   return (
     <Card className="w-full">
       <CardHeader>

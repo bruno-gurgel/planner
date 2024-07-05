@@ -22,19 +22,10 @@ export async function createCourseAction(formData: FormData) {
 
   const currentUser = await getCurrentUser();
 
-  console.log({
-    name,
-    author,
-    platform,
-    startedAt,
-    doneAt,
-    currentUser,
-  });
-
   // Send the data to the server
   let success = false;
   try {
-    const result = await prisma.courses.create({
+    await prisma.courses.create({
       data: {
         name,
         author,
@@ -45,11 +36,9 @@ export async function createCourseAction(formData: FormData) {
       },
     });
 
-    console.log({ result });
-
     success = true;
   } catch (error) {
-    console.error(error);
+    success = false;
   }
 
   if (success) {
@@ -65,15 +54,6 @@ export async function updateCourseAction(id: number, formData: FormData) {
   const doneAt = formData.get("doneAt") as string | null;
 
   const currentUser = await getCurrentUser();
-
-  console.log({
-    name,
-    author,
-    platform,
-    startedAt,
-    doneAt,
-    currentUser,
-  });
 
   // Send the data to the server
   let success = false;
@@ -92,11 +72,9 @@ export async function updateCourseAction(id: number, formData: FormData) {
       },
     });
 
-    console.log({ result });
-
     success = true;
   } catch (error) {
-    console.error(error);
+    success = false;
   }
 
   if (success) {
@@ -139,8 +117,6 @@ export async function createBookAction(formData: FormData) {
 
   const currentUser = await getCurrentUser();
 
-  console.log({ author, title, currentUser, startedAt, doneAt });
-
   // Send the data to the server
   let success = false;
   try {
@@ -156,7 +132,7 @@ export async function createBookAction(formData: FormData) {
 
     success = true;
   } catch (error) {
-    console.error(error);
+    success = false;
   }
 
   if (success) {
@@ -171,8 +147,6 @@ export async function updateBookAction(id: number, formData: FormData) {
   const doneAt = formData.get("doneAt") as string | null;
 
   const currentUser = await getCurrentUser();
-
-  console.log({ author, title, currentUser, startedAt, doneAt });
 
   // Send the data to the server
   let success = false;
@@ -192,7 +166,7 @@ export async function updateBookAction(id: number, formData: FormData) {
 
     success = true;
   } catch (error) {
-    console.error(error);
+    success = false;
   }
 
   if (success) {
@@ -232,8 +206,6 @@ export async function createReminderAction(formData: FormData) {
 
   const currentUser = await getCurrentUser();
 
-  console.log({ title, dueDate, currentUser });
-
   // Send the data to the server
   let success = false;
   try {
@@ -247,7 +219,7 @@ export async function createReminderAction(formData: FormData) {
 
     success = true;
   } catch (error) {
-    console.error(error);
+    success = false;
   }
 
   if (success) {

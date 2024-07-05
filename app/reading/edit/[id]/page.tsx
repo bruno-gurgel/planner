@@ -23,7 +23,6 @@ export default async function AddStudyingTopic({
 
   const data = await getBookByIdDTO(Number(id));
   const updateBookActionWithId = updateBookAction.bind(null, data.id);
-  console.log({ data });
 
   return (
     <form

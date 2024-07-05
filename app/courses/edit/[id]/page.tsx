@@ -22,8 +22,6 @@ export default async function EditCourse({
 
   const data = await getCourseByIdDTO(Number(id));
   const updateUserWithId = updateCourseAction.bind(null, data.id);
-  console.log({ data });
-
   return (
     <form
       className="flex justify-center items-center"
