@@ -20,10 +20,11 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
   Books     Books[]
   Courses   Courses[]
+  Reminders Reminders[]
 }
 
 model Account {
@@ -86,4 +87,16 @@ model Courses {
   user      User      @relation(fields: [userId], references: [id])
   doneAt    DateTime?
   startedAt DateTime?
+}
+
+// Model for reminders
+model Reminders {
+  id        Int       @id @default(autoincrement())
+  title     String
+  userId    String    @map(name: "user_id") // Foreign key to User
+  user      User      @relation(fields: [userId], references: [id])
+  done      Boolean   @default(false)
+  dueDate   DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }

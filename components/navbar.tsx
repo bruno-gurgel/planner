@@ -21,11 +21,10 @@ export default async function Navbar() {
               Books
             </Link>
             <Link
-              href="#"
+              href="/reminders"
               className="hover:text-primary-foreground/80"
-              prefetch={false}
             >
-              Calendar
+              Reminders
             </Link>
 
             <ThemeToggle />

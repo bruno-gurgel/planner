@@ -78,7 +78,7 @@ export default async function StudyTopics() {
         </Button>
 
         <Button className="w-full" asChild>
-          <Link href="/courses">Details</Link>
+          <Link href="/courses">View All</Link>
         </Button>
       </CardFooter>
     </Card>

@@ -68,7 +68,7 @@ export default async function ReadingList() {
         </Button>
 
         <Button className="w-full" asChild>
-          <Link href="/reading">Details</Link>
+          <Link href="/reading">View All</Link>
         </Button>
       </CardFooter>
     </Card>
