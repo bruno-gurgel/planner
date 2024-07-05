@@ -1,0 +1,11 @@
+
+
+module.exports = {
+  extends: [
+    "next/core-web-vitals",
+    "next",
+    "prettier",
+    'plugin:@next/next/recommended',
+  ],
+
+};
