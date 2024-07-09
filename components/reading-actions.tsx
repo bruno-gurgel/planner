@@ -3,7 +3,11 @@
 import { Settings } from "lucide-react";
 
 import Link from "next/link";
-import { deleteBookAction, markBookAsDone } from "@/lib/actions";
+import {
+  deleteBookAction,
+  markBookAsDone,
+  markBookAsNotDone,
+} from "@/lib/actions";
 import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
@@ -34,7 +38,18 @@ export default function ReadingActions({
           <Link href={`/reading/edit/${id}`}>Edit</Link>
         </DropdownMenuItem>
 
-        {done ? null : (
+        {done ? (
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={async () => {
+              await markBookAsNotDone(id);
+
+              router.refresh();
+            }}
+          >
+            Mark as Not Done
+          </DropdownMenuItem>
+        ) : (
           <DropdownMenuItem
             className="cursor-pointer"
             onClick={async () => {

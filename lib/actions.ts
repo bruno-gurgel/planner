@@ -51,7 +51,7 @@ export async function updateCourseAction(id: number, formData: FormData) {
   const author = formData.get("author") as string | null;
   const platform = formData.get("platform") as string | null;
   const startedAt = formData.get("startedAt") as string | null;
-  const doneAt = formData.get("doneAt") as string | null;
+  const doneAt = (formData.get("doneAt") as string | null) || null;
 
   const currentUser = await getCurrentUser();
 
@@ -92,6 +92,20 @@ export async function markCourseAsDone(id: number) {
     },
     data: {
       doneAt: new Date(),
+    },
+  });
+}
+
+export async function markCourseAsNotDone(id: number) {
+  const currentUser = await getCurrentUser();
+
+  await prisma.courses.update({
+    where: {
+      id,
+      userId: currentUser.id,
+    },
+    data: {
+      doneAt: null,
     },
   });
 }
@@ -184,6 +198,20 @@ export async function markBookAsDone(id: number) {
     },
     data: {
       doneAt: new Date(),
+    },
+  });
+}
+
+export async function markBookAsNotDone(id: number) {
+  const currentUser = await getCurrentUser();
+
+  await prisma.books.update({
+    where: {
+      id,
+      userId: currentUser.id,
+    },
+    data: {
+      doneAt: null,
     },
   });
 }

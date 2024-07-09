@@ -9,7 +9,11 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import Link from "next/link";
-import { deleteCourseAction, markCourseAsDone } from "@/lib/actions";
+import {
+  deleteCourseAction,
+  markCourseAsDone,
+  markCourseAsNotDone,
+} from "@/lib/actions";
 import { useRouter } from "next/navigation";
 
 export default function StudyingActions({
@@ -33,7 +37,18 @@ export default function StudyingActions({
           <Link href={`/courses/edit/${id}`}>Edit</Link>
         </DropdownMenuItem>
 
-        {done ? null : (
+        {done ? (
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={async () => {
+              await markCourseAsNotDone(id);
+
+              router.refresh();
+            }}
+          >
+            Mark as Not Done
+          </DropdownMenuItem>
+        ) : (
           <DropdownMenuItem
             className="cursor-pointer"
             onClick={async () => {

@@ -22,6 +22,7 @@ export default async function Reminders() {
       </CardHeader>
       <CardContent>
         <div className="space-y-4">
+          {reminders.length === 0 ? <p>No reminders yet</p> : null}
           {reminders.map((reminder) => (
             <ReminderLine
               key={reminder.id}
