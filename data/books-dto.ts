@@ -27,6 +27,9 @@ export async function getPreviewBooksDTO(): Promise<{
       },
       doneAt: null,
     },
+    orderBy: {
+      startedAt: "asc",
+    },
   });
 
   // Find up to 3 subjects that are TO_READ

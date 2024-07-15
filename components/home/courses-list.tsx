@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import { Separator } from "../ui/separator";
 import StudyingActions from "../studying-actions";
+import { Badge } from "../ui/badge";
 
 export default async function StudyTopics() {
   const { current, next } = await getPreviewCoursesDTO();
@@ -37,9 +38,21 @@ export default async function StudyTopics() {
                     {item.platform ? (
                       <p className="text-muted-foreground">{item.platform}</p>
                     ) : null}
+
+                    <div className="flex gap-1 mt-2">
+                      {item.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                   <div className="flex gap-2">
-                    <StudyingActions id={item.id} />
+                    <StudyingActions
+                      id={item.id}
+                      tags={item.tags}
+                      name={item.name}
+                    />
                   </div>
                 </div>
               ))
@@ -62,9 +75,22 @@ export default async function StudyTopics() {
                     {item.platform ? (
                       <p className="text-muted-foreground">{item.platform}</p>
                     ) : null}
+
+                    <div className="flex gap-1 mt-2">
+                      {item.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                   <div className="flex gap-2">
-                    <StudyingActions id={item.id} done />
+                    <StudyingActions
+                      id={item.id}
+                      notStarted
+                      tags={item.tags}
+                      name={item.name}
+                    />
                   </div>
                 </div>
               ))

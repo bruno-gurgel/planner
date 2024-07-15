@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import { Separator } from "../ui/separator";
 import ReadingActions from "../reading-actions";
+import { Badge } from "../ui/badge";
 
 export default async function ReadingList() {
   const { current, next } = await getPreviewBooksDTO();
@@ -32,13 +33,26 @@ export default async function ReadingList() {
                     <p className="text-lg font-medium">{item.title}</p>
 
                     <p className="text-muted-foreground">{item.author}</p>
+
+                    <div className="flex gap-1 mt-2">
+                      {item.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                   <div className="flex gap-2">
-                    <ReadingActions id={item.id} />
+                    <ReadingActions
+                      id={item.id}
+                      tags={item.tags}
+                      name={item.title}
+                    />
                   </div>
                 </div>
               ))
             : null}
+
           <Separator />
           <h3 className="text-xl font-medium">Next Up</h3>
 
@@ -52,9 +66,22 @@ export default async function ReadingList() {
                     <p className="text-lg font-medium">{item.title}</p>
 
                     <p className="text-muted-foreground">{item.author}</p>
+
+                    <div className="flex gap-1 mt-2">
+                      {item.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                   <div className="flex gap-2">
-                    <ReadingActions id={item.id} done />
+                    <ReadingActions
+                      id={item.id}
+                      notStarted
+                      tags={item.tags}
+                      name={item.title}
+                    />
                   </div>
                 </div>
               ))

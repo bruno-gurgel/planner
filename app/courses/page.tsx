@@ -1,4 +1,5 @@
 import StudyingActions from "@/components/studying-actions";
+import { Badge } from "@/components/ui/badge";
 import { getCoursesDTO } from "@/data/courses-dto";
 import { formatDate } from "@/lib/utils";
 
@@ -14,7 +15,12 @@ export default async function StudyingTopics() {
             {read.map((item) => (
               <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
                 <div className="flex items-center space-x-4">
-                  <StudyingActions id={item.id} done />
+                  <StudyingActions
+                    id={item.id}
+                    done
+                    tags={item.tags}
+                    name={item.name}
+                  />
 
                   <div>
                     <h3 className="text-lg font-medium mb-2">{item.name}</h3>
@@ -31,6 +37,14 @@ export default async function StudyingTopics() {
                         {formatDate(item.doneAt)}
                       </p>
                     ) : null}
+
+                    <div className="flex gap-1 mt-2">
+                      {item.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -43,7 +57,11 @@ export default async function StudyingTopics() {
             {current.map((item) => (
               <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
                 <div className="flex items-center space-x-4">
-                  <StudyingActions id={item.id} />
+                  <StudyingActions
+                    id={item.id}
+                    tags={item.tags}
+                    name={item.name}
+                  />
 
                   <div>
                     <h3 className="text-lg font-medium mb-2">{item.name}</h3>
@@ -60,6 +78,14 @@ export default async function StudyingTopics() {
                         {formatDate(item.startedAt)}
                       </p>
                     ) : null}
+
+                    <div className="flex gap-1 mt-2">
+                      {item.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -72,7 +98,12 @@ export default async function StudyingTopics() {
             {next.map((item) => (
               <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
                 <div className="flex items-center space-x-4">
-                  <StudyingActions id={item.id} />
+                  <StudyingActions
+                    id={item.id}
+                    notStarted
+                    tags={item.tags}
+                    name={item.name}
+                  />
 
                   <div>
                     <h3 className="text-lg font-medium mb-2">{item.name}</h3>
@@ -83,6 +114,14 @@ export default async function StudyingTopics() {
                     {item.platform ? (
                       <p className="text-muted-foreground">{item.platform}</p>
                     ) : null}
+
+                    <div className="flex gap-1 mt-2">
+                      {item.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

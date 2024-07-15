@@ -75,6 +75,7 @@ model Books {
   user      User      @relation(fields: [userId], references: [id])
   doneAt    DateTime?
   startedAt DateTime?
+  tags      String[]
 }
 
 // Model for studying activities
@@ -87,6 +88,7 @@ model Courses {
   user      User      @relation(fields: [userId], references: [id])
   doneAt    DateTime?
   startedAt DateTime?
+  tags      String[]
 }
 
 // Model for reminders

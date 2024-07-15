@@ -1,4 +1,5 @@
 import ReadingActions from "@/components/reading-actions";
+import { Badge } from "@/components/ui/badge";
 import { getBooksDTO } from "@/data/books-dto";
 import { getCoursesDTO } from "@/data/courses-dto";
 import { formatDate } from "@/lib/utils";
@@ -15,7 +16,12 @@ export default async function Books() {
             {read.map((item) => (
               <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
                 <div className="flex items-center space-x-4">
-                  <ReadingActions id={item.id} done />
+                  <ReadingActions
+                    id={item.id}
+                    done
+                    tags={item.tags}
+                    name={item.title}
+                  />
 
                   <div>
                     <h3 className="text-lg font-medium mb-2">{item.title}</h3>
@@ -27,6 +33,14 @@ export default async function Books() {
                         {formatDate(item.doneAt)}
                       </p>
                     ) : null}
+
+                    <div className="flex gap-1 mt-2">
+                      {item.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -39,7 +53,11 @@ export default async function Books() {
             {current.map((item) => (
               <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
                 <div className="flex items-center space-x-4">
-                  <ReadingActions id={item.id} />
+                  <ReadingActions
+                    id={item.id}
+                    tags={item.tags}
+                    name={item.title}
+                  />
 
                   <div>
                     <h3 className="text-lg font-medium mb-2">{item.title}</h3>
@@ -51,6 +69,14 @@ export default async function Books() {
                         {formatDate(item.startedAt)}
                       </p>
                     ) : null}
+
+                    <div className="flex gap-1 mt-2">
+                      {item.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -63,12 +89,25 @@ export default async function Books() {
             {next.map((item) => (
               <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
                 <div className="flex items-center space-x-4">
-                  <ReadingActions id={item.id} />
+                  <ReadingActions
+                    id={item.id}
+                    notStarted
+                    tags={item.tags}
+                    name={item.title}
+                  />
 
                   <div>
                     <h3 className="text-lg font-medium mb-2">{item.title}</h3>
 
                     <p className="text-muted-foreground">{item.author}</p>
+
+                    <div className="flex gap-1 mt-2">
+                      {item.tags.map((tag) => (
+                        <Badge key={tag} variant="outline">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

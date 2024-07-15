@@ -82,6 +82,20 @@ export async function updateCourseAction(id: number, formData: FormData) {
   }
 }
 
+export async function startCourse(id: number) {
+  const currentUser = await getCurrentUser();
+
+  await prisma.courses.update({
+    where: {
+      id,
+      userId: currentUser.id,
+    },
+    data: {
+      startedAt: new Date(),
+    },
+  });
+}
+
 export async function markCourseAsDone(id: number) {
   const currentUser = await getCurrentUser();
 
@@ -188,6 +202,20 @@ export async function updateBookAction(id: number, formData: FormData) {
   }
 }
 
+export async function startBook(id: number) {
+  const currentUser = await getCurrentUser();
+
+  await prisma.books.update({
+    where: {
+      id,
+      userId: currentUser.id,
+    },
+    data: {
+      startedAt: new Date(),
+    },
+  });
+}
+
 export async function markBookAsDone(id: number) {
   const currentUser = await getCurrentUser();
 
@@ -275,4 +303,130 @@ export async function toggleReminderAction(
   });
 
   redirect(redirectTo);
+}
+
+/* TAGS */
+
+export async function addTagAction(
+  type: "course" | "book",
+  id: number,
+  tag: string
+) {
+  const currentUser = await getCurrentUser();
+
+  // Send the data to the server
+  let success = false;
+  try {
+    if (type === "course") {
+      await prisma.courses.update({
+        where: {
+          id,
+          userId: currentUser.id,
+        },
+        data: {
+          tags: {
+            push: tag,
+          },
+        },
+      });
+    } else {
+      await prisma.books.update({
+        where: {
+          id,
+          userId: currentUser.id,
+        },
+        data: {
+          tags: {
+            push: tag,
+          },
+        },
+      });
+    }
+
+    success = true;
+  } catch (error) {
+    success = false;
+  }
+
+  return success;
+}
+
+export async function editTagAction(
+  type: "course" | "book",
+  id: number,
+  tags: string[]
+) {
+  const currentUser = await getCurrentUser();
+
+  // Send the data to the server
+  let success = false;
+  try {
+    if (type === "course") {
+      await prisma.courses.update({
+        where: {
+          id,
+          userId: currentUser.id,
+        },
+        data: {
+          tags,
+        },
+      });
+    } else {
+      await prisma.books.update({
+        where: {
+          id,
+          userId: currentUser.id,
+        },
+        data: {
+          tags,
+        },
+      });
+    }
+
+    success = true;
+  } catch (error) {
+    success = false;
+  }
+
+  return success;
+}
+
+export async function deleteTagAction(
+  type: "course" | "book",
+  id: number,
+  tags: string[]
+) {
+  const currentUser = await getCurrentUser();
+
+  // Send the data to the server
+  let success = false;
+  try {
+    if (type === "course") {
+      await prisma.courses.update({
+        where: {
+          id,
+          userId: currentUser.id,
+        },
+        data: {
+          tags,
+        },
+      });
+    } else {
+      await prisma.books.update({
+        where: {
+          id,
+          userId: currentUser.id,
+        },
+        data: {
+          tags,
+        },
+      });
+    }
+
+    success = true;
+  } catch (error) {
+    success = false;
+  }
+
+  return success;
 }

@@ -26,6 +26,9 @@ export async function getPreviewCoursesDTO(): Promise<{
       },
       doneAt: null,
     },
+    orderBy: {
+      startedAt: "asc",
+    },
   });
 
   // Find up to 3 subjects that are TO_STUDY
@@ -88,4 +91,18 @@ export async function getCoursesDTO(): Promise<{
     current: currentReading,
     next: toStudy,
   };
+}
+
+export async function addCourseTagsDTO(
+  courseId: number,
+  tags: Courses["tags"]
+): Promise<void> {
+  await prisma.courses.update({
+    where: {
+      id: courseId,
+    },
+    data: {
+      tags: tags,
+    },
+  });
 }
