@@ -12,11 +12,11 @@ export default function Home() {
         <Reminders />
       </Suspense>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Suspense fallback={<SkeletonCard />}>
+        <Suspense fallback={<SkeletonCard type="study-topics" />}>
           <StudyTopics />
         </Suspense>
 
-        <Suspense fallback={<SkeletonCard />}>
+        <Suspense fallback={<SkeletonCard type="reading-list" />}>
           <ReadingList />
         </Suspense>
       </div>
