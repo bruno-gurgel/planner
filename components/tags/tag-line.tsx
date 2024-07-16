@@ -1,10 +1,10 @@
 "use client";
 
 import { Check, Pencil, X } from "lucide-react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 import { useState, useTransition } from "react";
-import { LoadingSpinner } from "./ui/loading-spinner";
+import { LoadingSpinner } from "../ui/loading-spinner";
 
 export default function TagLine({
   tag,

@@ -11,7 +11,7 @@ import Link from "next/link";
 import { Input } from "../ui/input";
 import { createReminderAction } from "@/lib/actions";
 import { DatePicker } from "../ui/date-picker";
-import ReminderLine from "../reminder-line";
+import ReminderLine from "../reminders/reminder-line";
 
 export default async function Reminders() {
   const reminders = await getPreviewRemindersDTO();

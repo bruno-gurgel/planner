@@ -1,21 +1,22 @@
 "use client";
 
 import { Settings } from "lucide-react";
-import { Button } from "./ui/button";
+
+import Link from "next/link";
+import {
+  deleteBookAction,
+  markBookAsDone,
+  markBookAsNotDone,
+  startBook,
+} from "@/lib/actions";
+import { useRouter } from "next/navigation";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
-import Link from "next/link";
-import {
-  deleteCourseAction,
-  markCourseAsDone,
-  markCourseAsNotDone,
-  startCourse,
-} from "@/lib/actions";
-import { useRouter } from "next/navigation";
+} from "../ui/dropdown-menu";
+import { Button } from "../ui/button";
 import {
   Dialog,
   DialogContent,
@@ -23,11 +24,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
-import TagsForm from "./tags-form";
-import { Courses } from "@prisma/client";
+} from "../ui/dialog";
+import TagsForm from "../tags/tags-form";
 
-export default function StudyingActions({
+export default function ReadingActions({
   id,
   done = false,
   notStarted = false,
@@ -37,7 +37,7 @@ export default function StudyingActions({
   id: number;
   done?: boolean;
   notStarted?: boolean;
-  tags: Courses["tags"];
+  tags: string[];
   name: string;
 }) {
   const router = useRouter();
@@ -48,7 +48,7 @@ export default function StudyingActions({
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={async () => {
-            await markCourseAsNotDone(id);
+            await markBookAsNotDone(id);
 
             router.refresh();
           }}
@@ -61,7 +61,7 @@ export default function StudyingActions({
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={async () => {
-            await startCourse(id);
+            await startBook(id);
 
             router.refresh();
           }}
@@ -74,7 +74,7 @@ export default function StudyingActions({
         <DropdownMenuItem
           className="cursor-pointer"
           onClick={async () => {
-            await markCourseAsDone(id);
+            await markBookAsDone(id);
 
             router.refresh();
           }}
@@ -95,7 +95,7 @@ export default function StudyingActions({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem asChild className="cursor-pointer">
-            <Link href={`/courses/edit/${id}`}>Edit</Link>
+            <Link href={`/reading/edit/${id}`}>Edit</Link>
           </DropdownMenuItem>
 
           {action}
@@ -107,7 +107,7 @@ export default function StudyingActions({
           <DropdownMenuItem
             className="cursor-pointer"
             onClick={async () => {
-              await deleteCourseAction(id);
+              await deleteBookAction(id);
 
               router.refresh();
             }}
@@ -121,11 +121,11 @@ export default function StudyingActions({
         <DialogHeader>
           <DialogTitle>{name}</DialogTitle>
           <DialogDescription>
-            Add, edit, or delete tags to help organize your courses.
+            Add, edit, or delete tags to help organize your books.
           </DialogDescription>
         </DialogHeader>
 
-        <TagsForm initialTags={tags} type="course" id={id} />
+        <TagsForm initialTags={tags} type="book" id={id} />
       </DialogContent>
     </Dialog>
   );

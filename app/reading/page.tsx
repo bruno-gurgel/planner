@@ -1,119 +1,66 @@
-import ReadingActions from "@/components/reading-actions";
+import BookLine from "@/components/books/book-line";
+import ReadingActions from "@/components/books/reading-actions";
+import CourseLine from "@/components/courses/course-line";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getBooksDTO } from "@/data/books-dto";
 import { getCoursesDTO } from "@/data/courses-dto";
 import { formatDate } from "@/lib/utils";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 
 export default async function Books() {
   const { current, next, read } = await getBooksDTO();
 
   return (
     <div className="container mx-auto py-12 px-4 md:px-6 lg:px-8">
-      <div className="grid gap-8">
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Past Studies</h2>
-          <div className="grid gap-4">
-            {read.map((item) => (
-              <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
-                <div className="flex items-center space-x-4">
-                  <ReadingActions
-                    id={item.id}
-                    done
-                    tags={item.tags}
-                    name={item.title}
-                  />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Past Books</CardTitle>
+          </CardHeader>
 
-                  <div>
-                    <h3 className="text-lg font-medium mb-2">{item.title}</h3>
-
-                    <p className="text-muted-foreground">{item.author}</p>
-
-                    {item.doneAt ? (
-                      <p className="text-muted-foreground">
-                        {formatDate(item.doneAt)}
-                      </p>
-                    ) : null}
-
-                    <div className="flex gap-1 mt-2">
-                      {item.tags.map((tag) => (
-                        <Badge key={tag} variant="outline">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+          <CardContent>
+            <ScrollArea className="h-[300px]">
+              <div className="grid gap-4">
+                {read.map((item) => (
+                  <BookLine key={item.id} book={item} reverse />
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Current Studying</h2>
-          <div className="grid gap-4">
-            {current.map((item) => (
-              <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
-                <div className="flex items-center space-x-4">
-                  <ReadingActions
-                    id={item.id}
-                    tags={item.tags}
-                    name={item.title}
-                  />
+            </ScrollArea>
+          </CardContent>
+        </Card>
 
-                  <div>
-                    <h3 className="text-lg font-medium mb-2">{item.title}</h3>
+        <Card>
+          <CardHeader>
+            <CardTitle>Current Reading</CardTitle>
+          </CardHeader>
 
-                    <p className="text-muted-foreground">{item.author}</p>
-
-                    {item.startedAt ? (
-                      <p className="text-muted-foreground">
-                        {formatDate(item.startedAt)}
-                      </p>
-                    ) : null}
-
-                    <div className="flex gap-1 mt-2">
-                      {item.tags.map((tag) => (
-                        <Badge key={tag} variant="outline">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+          <CardContent>
+            <ScrollArea className="h-[300px]">
+              <div className="grid gap-4">
+                {current.map((item) => (
+                  <BookLine key={item.id} book={item} reverse />
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Future Studies</h2>
-          <div className="grid gap-4">
-            {next.map((item) => (
-              <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
-                <div className="flex items-center space-x-4">
-                  <ReadingActions
-                    id={item.id}
-                    notStarted
-                    tags={item.tags}
-                    name={item.title}
-                  />
+            </ScrollArea>
+          </CardContent>
+        </Card>
 
-                  <div>
-                    <h3 className="text-lg font-medium mb-2">{item.title}</h3>
+        <Card>
+          <CardHeader>
+            <CardTitle>Future Reads</CardTitle>
+          </CardHeader>
 
-                    <p className="text-muted-foreground">{item.author}</p>
-
-                    <div className="flex gap-1 mt-2">
-                      {item.tags.map((tag) => (
-                        <Badge key={tag} variant="outline">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+          <CardContent>
+            <ScrollArea className="h-[300px]">
+              <div className="grid gap-4">
+                {next.map((item) => (
+                  <BookLine key={item.id} book={item} reverse />
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
+            </ScrollArea>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

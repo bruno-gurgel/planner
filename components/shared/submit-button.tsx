@@ -2,7 +2,7 @@
 
 import { useFormStatus } from "react-dom";
 
-import { Button, ButtonProps } from "./ui/button";
+import { Button, ButtonProps } from "../ui/button";
 
 interface SubmitButtonProps extends ButtonProps {
   children: React.ReactNode;

@@ -1,133 +1,61 @@
-import StudyingActions from "@/components/studying-actions";
-import { Badge } from "@/components/ui/badge";
+import CourseLine from "@/components/courses/course-line";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { getCoursesDTO } from "@/data/courses-dto";
-import { formatDate } from "@/lib/utils";
 
-export default async function StudyingTopics() {
+export default async function Courses() {
   const { current, next, read } = await getCoursesDTO();
 
   return (
     <div className="container mx-auto py-12 px-4 md:px-6 lg:px-8">
-      <div className="grid gap-8">
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Past Studies</h2>
-          <div className="grid gap-4">
-            {read.map((item) => (
-              <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
-                <div className="flex items-center space-x-4">
-                  <StudyingActions
-                    id={item.id}
-                    done
-                    tags={item.tags}
-                    name={item.name}
-                  />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Past Studies</CardTitle>
+          </CardHeader>
 
-                  <div>
-                    <h3 className="text-lg font-medium mb-2">{item.name}</h3>
-                    {item.author ? (
-                      <p className="text-muted-foreground">{item.author}</p>
-                    ) : null}
-
-                    {item.platform ? (
-                      <p className="text-muted-foreground">{item.platform}</p>
-                    ) : null}
-
-                    {item.doneAt ? (
-                      <p className="text-muted-foreground">
-                        {formatDate(item.doneAt)}
-                      </p>
-                    ) : null}
-
-                    <div className="flex gap-1 mt-2">
-                      {item.tags.map((tag) => (
-                        <Badge key={tag} variant="outline">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+          <CardContent>
+            <ScrollArea className="h-[300px]">
+              <div className="grid gap-4">
+                {read.map((item) => (
+                  <CourseLine key={item.id} course={item} reverse />
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Current Studying</h2>
-          <div className="grid gap-4">
-            {current.map((item) => (
-              <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
-                <div className="flex items-center space-x-4">
-                  <StudyingActions
-                    id={item.id}
-                    tags={item.tags}
-                    name={item.name}
-                  />
+            </ScrollArea>
+          </CardContent>
+        </Card>
 
-                  <div>
-                    <h3 className="text-lg font-medium mb-2">{item.name}</h3>
-                    {item.author ? (
-                      <p className="text-muted-foreground">{item.author}</p>
-                    ) : null}
+        <Card>
+          <CardHeader>
+            <CardTitle>Current Studying</CardTitle>
+          </CardHeader>
 
-                    {item.platform ? (
-                      <p className="text-muted-foreground">{item.platform}</p>
-                    ) : null}
-
-                    {item.startedAt ? (
-                      <p className="text-muted-foreground">
-                        {formatDate(item.startedAt)}
-                      </p>
-                    ) : null}
-
-                    <div className="flex gap-1 mt-2">
-                      {item.tags.map((tag) => (
-                        <Badge key={tag} variant="outline">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+          <CardContent>
+            <ScrollArea className="h-[300px]">
+              <div className="grid gap-4">
+                {current.map((item) => (
+                  <CourseLine key={item.id} course={item} reverse />
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-        <div>
-          <h2 className="text-2xl font-bold mb-4">Future Studies</h2>
-          <div className="grid gap-4">
-            {next.map((item) => (
-              <div key={item.id} className="bg-card p-4 rounded-lg shadow-sm">
-                <div className="flex items-center space-x-4">
-                  <StudyingActions
-                    id={item.id}
-                    notStarted
-                    tags={item.tags}
-                    name={item.name}
-                  />
+            </ScrollArea>
+          </CardContent>
+        </Card>
 
-                  <div>
-                    <h3 className="text-lg font-medium mb-2">{item.name}</h3>
-                    {item.author ? (
-                      <p className="text-muted-foreground">{item.author}</p>
-                    ) : null}
+        <Card>
+          <CardHeader>
+            <CardTitle>Future Studies</CardTitle>
+          </CardHeader>
 
-                    {item.platform ? (
-                      <p className="text-muted-foreground">{item.platform}</p>
-                    ) : null}
-
-                    <div className="flex gap-1 mt-2">
-                      {item.tags.map((tag) => (
-                        <Badge key={tag} variant="outline">
-                          {tag}
-                        </Badge>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+          <CardContent>
+            <ScrollArea className="h-[300px]">
+              <div className="grid gap-4">
+                {next.map((item) => (
+                  <CourseLine key={item.id} course={item} reverse />
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
+            </ScrollArea>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { Input } from "./ui/input";
-import { Button } from "./ui/button";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { Courses } from "@prisma/client";
-import { LoadingSpinner } from "./ui/loading-spinner";
+import { LoadingSpinner } from "../ui/loading-spinner";
 import { addTagAction, deleteTagAction, editTagAction } from "@/lib/actions";
 import TagLine from "./tag-line";
 import { useRouter } from "next/navigation";

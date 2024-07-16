@@ -1,4 +1,4 @@
-import ReminderLine from "@/components/reminder-line";
+import ReminderLine from "@/components/reminders/reminder-line";
 import { getRemindersDTO } from "@/data/reminders-dto";
 
 export default async function Reminders() {

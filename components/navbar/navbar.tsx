@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ThemeToggle } from "./theme-toggle";
+import { ThemeToggle } from "../theme/theme-toggle";
 import LogoutButton from "./logout-button";
 import { auth } from "@/auth";
 

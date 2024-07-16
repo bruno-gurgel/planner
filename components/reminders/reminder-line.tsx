@@ -1,7 +1,7 @@
 "use client";
 
 import { Reminders } from "@prisma/client";
-import { Checkbox } from "./ui/checkbox";
+import { Checkbox } from "../ui/checkbox";
 import { formatDate } from "@/lib/utils";
 import { toggleReminderAction } from "@/lib/actions";
 import { useTransition } from "react";
