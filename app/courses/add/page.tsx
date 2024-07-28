@@ -54,13 +54,32 @@ export default function AddCourse() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="platform">Started At (optional)</Label>
-              <DatePicker placeholder="Pick a start date" name="startedAt" />
+              <Label htmlFor="tags">
+                Tags - Separated with commas (optional)
+              </Label>
+              <Input
+                id="tags"
+                placeholder="Enter the course tags"
+                name="tags"
+              />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="platform">Done At (optional)</Label>
-              <DatePicker placeholder="Pick a done date" name="doneAt" />
+              <Label htmlFor="startedAt">Started At (optional)</Label>
+              <DatePicker
+                placeholder="Pick a start date"
+                name="startedAt"
+                id="startedAt"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="doneAt">Done At (optional)</Label>
+              <DatePicker
+                placeholder="Pick a done date"
+                name="doneAt"
+                id="doneAt"
+              />
             </div>
           </div>
         </CardContent>

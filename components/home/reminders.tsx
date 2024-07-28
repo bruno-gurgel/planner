@@ -36,7 +36,11 @@ export default async function Reminders() {
         <form action={createReminderAction}>
           <div className="flex items-center gap-2">
             <Input placeholder="Add a new reminder" name="title" required />
-            <DatePicker name="dueDate" placeholder="Due date" />
+            <DatePicker
+              name="dueDate"
+              placeholder="Due date"
+              id="dueDateReminder"
+            />
             <Button>Add</Button>
           </div>
         </form>

@@ -17,12 +17,14 @@ interface DatePickerProps {
   placeholder: string;
   name: string;
   defaultValue?: Date | null;
+  id: string;
 }
 
 export function DatePicker({
   placeholder,
   name,
   defaultValue,
+  id,
 }: DatePickerProps) {
   const [date, setDate] = React.useState<Date | undefined>(() => {
     if (defaultValue) {
@@ -44,7 +46,12 @@ export function DatePicker({
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? format(date, "PPP") : <span>{placeholder}</span>}
-          <input type="hidden" name={name} value={date?.toISOString() ?? ""} />
+          <input
+            type="hidden"
+            name={name}
+            value={date?.toISOString() ?? ""}
+            id={id}
+          />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">

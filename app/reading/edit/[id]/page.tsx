@@ -57,20 +57,32 @@ export default async function AddStudyingTopic({
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="platform">Started At (optional)</Label>
-              <DatePicker
-                placeholder="Pick a start date"
-                name="startedAt"
-                defaultValue={data.startedAt}
+              <Label htmlFor="tags">Tags (optional)</Label>
+              <Input
+                id="tags"
+                placeholder="Enter tags"
+                name="tags"
+                defaultValue={data.tags}
               />
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="platform">Done At (optional)</Label>
+              <Label htmlFor="startedAt">Started At (optional)</Label>
+              <DatePicker
+                placeholder="Pick a start date"
+                name="startedAt"
+                defaultValue={data.startedAt}
+                id="startedAt"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="doneAt">Done At (optional)</Label>
               <DatePicker
                 placeholder="Pick a done date"
                 name="doneAt"
                 defaultValue={data.doneAt}
+                id="doneAt"
               />
             </div>
           </div>

@@ -17,6 +17,7 @@ export async function createCourseAction(formData: FormData) {
   const name = formData.get("name") as string;
   const author = formData.get("author") as string | null;
   const platform = formData.get("platform") as string | null;
+  const tags = (formData.get("tags") as string) || "";
   const startedAt = formData.get("startedAt") as string | null;
   const doneAt = formData.get("doneAt") as string | null;
 
@@ -33,6 +34,7 @@ export async function createCourseAction(formData: FormData) {
         startedAt: startedAt ? new Date(startedAt) : null,
         doneAt: doneAt ? new Date(doneAt) : null,
         userId: currentUser.id,
+        tags: tags.split(",").map((tag) => tag.trim()),
       },
     });
 
@@ -142,6 +144,7 @@ export async function createBookAction(formData: FormData) {
   const author = formData.get("author") as string;
   const startedAt = formData.get("startedAt") as string | null;
   const doneAt = formData.get("doneAt") as string | null;
+  const tags = (formData.get("tags") as string) || "";
 
   const currentUser = await getCurrentUser();
 
@@ -155,6 +158,7 @@ export async function createBookAction(formData: FormData) {
         startedAt: startedAt ? new Date(startedAt) : null,
         doneAt: doneAt ? new Date(doneAt) : null,
         userId: currentUser.id,
+        tags: tags.split(",").map((tag) => tag.trim()),
       },
     });
 
@@ -173,6 +177,7 @@ export async function updateBookAction(id: number, formData: FormData) {
   const author = formData.get("author") as string;
   const startedAt = formData.get("startedAt") as string | null;
   const doneAt = formData.get("doneAt") as string | null;
+  const tags = (formData.get("tags") as string) || "";
 
   const currentUser = await getCurrentUser();
 
@@ -189,6 +194,7 @@ export async function updateBookAction(id: number, formData: FormData) {
         startedAt: startedAt ? new Date(startedAt) : null,
         doneAt: doneAt ? new Date(doneAt) : null,
         userId: currentUser.id,
+        tags: tags.split(",").map((tag) => tag.trim()),
       },
     });
 
@@ -286,7 +292,7 @@ export async function createReminderAction(formData: FormData) {
 export async function toggleReminderAction(
   id: number,
   done: boolean,
-  redirectTo: string
+  redirectTo: string,
 ) {
   const currentUser = await getCurrentUser();
 
@@ -310,7 +316,7 @@ export async function toggleReminderAction(
 export async function addTagAction(
   type: "course" | "book",
   id: number,
-  tag: string
+  tag: string,
 ) {
   const currentUser = await getCurrentUser();
 
@@ -354,7 +360,7 @@ export async function addTagAction(
 export async function editTagAction(
   type: "course" | "book",
   id: number,
-  tags: string[]
+  tags: string[],
 ) {
   const currentUser = await getCurrentUser();
 
@@ -394,7 +400,7 @@ export async function editTagAction(
 export async function deleteTagAction(
   type: "course" | "book",
   id: number,
-  tags: string[]
+  tags: string[],
 ) {
   const currentUser = await getCurrentUser();
 
