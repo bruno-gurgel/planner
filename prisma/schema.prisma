@@ -76,6 +76,7 @@ model Books {
   doneAt    DateTime?
   startedAt DateTime?
   tags      String[]
+  order     Int       @default(autoincrement())
 }
 
 // Model for studying activities
@@ -89,6 +90,7 @@ model Courses {
   doneAt    DateTime?
   startedAt DateTime?
   tags      String[]
+  order     Int       @default(autoincrement())
 }
 
 // Model for reminders
