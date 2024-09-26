@@ -4,6 +4,7 @@ import { signIn, signOut } from "@/auth";
 import prisma from "./db";
 import { getCurrentUser } from "@/data/auth";
 import { redirect } from "next/navigation";
+import { Books, Courses, Prisma } from "@prisma/client";
 
 export async function logInAction() {
   return signIn("google");
@@ -26,6 +27,12 @@ export async function createCourseAction(formData: FormData) {
   // Send the data to the server
   let success = false;
   try {
+    const lastItem = await prisma.courses.findFirst({
+      orderBy: {
+        order: "desc",
+      },
+    });
+
     await prisma.courses.create({
       data: {
         name,
@@ -35,6 +42,7 @@ export async function createCourseAction(formData: FormData) {
         doneAt: doneAt ? new Date(doneAt) : null,
         userId: currentUser.id,
         tags: tags.split(",").map((tag) => tag.trim()),
+        order: lastItem ? lastItem.order + 1 : 0,
       },
     });
 
@@ -129,12 +137,47 @@ export async function markCourseAsNotDone(id: number) {
 export async function deleteCourseAction(id: number) {
   const currentUser = await getCurrentUser();
 
+  const removedItem = await prisma.courses.findUnique({
+    where: { id },
+  });
+
+  if (!removedItem) {
+    return;
+  }
+
   await prisma.courses.delete({
     where: {
       id,
       userId: currentUser.id,
     },
   });
+
+  await prisma.courses.updateMany({
+    where: {
+      order: { gt: removedItem.order },
+    },
+    data: {
+      order: { decrement: 1 },
+    },
+  });
+}
+
+export async function updateCoursesOrder(courses: Courses[]) {
+  const transactions: Prisma.Prisma__CoursesClient<Courses>[] = [];
+  courses.forEach(async (course) => {
+    transactions.push(
+      prisma.courses.update({
+        where: {
+          id: course.id,
+        },
+        data: {
+          order: course.order,
+        },
+      })
+    );
+  });
+
+  await prisma.$transaction(transactions);
 }
 
 /* BOOKS */
@@ -261,6 +304,24 @@ export async function deleteBookAction(id: number) {
   });
 }
 
+export async function updateBooksOrder(books: Books[]) {
+  const transactions: Prisma.Prisma__BooksClient<Books>[] = [];
+  books.forEach(async (book) => {
+    transactions.push(
+      prisma.books.update({
+        where: {
+          id: book.id,
+        },
+        data: {
+          order: book.order,
+        },
+      })
+    );
+  });
+
+  await prisma.$transaction(transactions);
+}
+
 /* REMINDERS */
 export async function createReminderAction(formData: FormData) {
   const title = formData.get("title") as string;
@@ -292,7 +353,7 @@ export async function createReminderAction(formData: FormData) {
 export async function toggleReminderAction(
   id: number,
   done: boolean,
-  redirectTo: string,
+  redirectTo: string
 ) {
   const currentUser = await getCurrentUser();
 
@@ -316,7 +377,7 @@ export async function toggleReminderAction(
 export async function addTagAction(
   type: "course" | "book",
   id: number,
-  tag: string,
+  tag: string
 ) {
   const currentUser = await getCurrentUser();
 
@@ -360,7 +421,7 @@ export async function addTagAction(
 export async function editTagAction(
   type: "course" | "book",
   id: number,
-  tags: string[],
+  tags: string[]
 ) {
   const currentUser = await getCurrentUser();
 
@@ -400,7 +461,7 @@ export async function editTagAction(
 export async function deleteTagAction(
   type: "course" | "book",
   id: number,
-  tags: string[],
+  tags: string[]
 ) {
   const currentUser = await getCurrentUser();
 

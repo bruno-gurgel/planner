@@ -76,6 +76,7 @@ export async function getCoursesDTO(): Promise<{
       },
       doneAt: null,
     },
+    orderBy: { order: "asc" },
   });
 
   const toStudy = await prisma.courses.findMany({
@@ -84,6 +85,7 @@ export async function getCoursesDTO(): Promise<{
       startedAt: null,
       doneAt: null,
     },
+    orderBy: { order: "asc" },
   });
 
   return {

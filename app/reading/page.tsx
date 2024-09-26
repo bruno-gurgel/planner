@@ -1,12 +1,8 @@
 import BookLine from "@/components/books/book-line";
-import ReadingActions from "@/components/books/reading-actions";
-import CourseLine from "@/components/courses/course-line";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getBooksDTO } from "@/data/books-dto";
-import { getCoursesDTO } from "@/data/courses-dto";
-import { formatDate } from "@/lib/utils";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import ReadingDraggable from "./reading-draggable";
 
 export default async function Books() {
   const { current, next, read } = await getBooksDTO();
@@ -36,13 +32,7 @@ export default async function Books() {
           </CardHeader>
 
           <CardContent>
-            <ScrollArea className="h-[300px]">
-              <div className="grid gap-4">
-                {current.map((item) => (
-                  <BookLine key={item.id} book={item} reverse />
-                ))}
-              </div>
-            </ScrollArea>
+            <ReadingDraggable books={current} />
           </CardContent>
         </Card>
 
@@ -52,13 +42,7 @@ export default async function Books() {
           </CardHeader>
 
           <CardContent>
-            <ScrollArea className="h-[300px]">
-              <div className="grid gap-4">
-                {next.map((item) => (
-                  <BookLine key={item.id} book={item} reverse />
-                ))}
-              </div>
-            </ScrollArea>
+            <ReadingDraggable books={next} />
           </CardContent>
         </Card>
       </div>

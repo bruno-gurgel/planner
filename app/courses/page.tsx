@@ -2,6 +2,7 @@ import CourseLine from "@/components/courses/course-line";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { getCoursesDTO } from "@/data/courses-dto";
+import CoursesDraggable from "./courses-draggable";
 
 export default async function Courses() {
   const { current, next, read } = await getCoursesDTO();
@@ -31,13 +32,7 @@ export default async function Courses() {
           </CardHeader>
 
           <CardContent>
-            <ScrollArea className="h-[300px]">
-              <div className="grid gap-4">
-                {current.map((item) => (
-                  <CourseLine key={item.id} course={item} reverse />
-                ))}
-              </div>
-            </ScrollArea>
+            <CoursesDraggable courses={current} />
           </CardContent>
         </Card>
 
@@ -47,13 +42,7 @@ export default async function Courses() {
           </CardHeader>
 
           <CardContent>
-            <ScrollArea className="h-[300px]">
-              <div className="grid gap-4">
-                {next.map((item) => (
-                  <CourseLine key={item.id} course={item} reverse />
-                ))}
-              </div>
-            </ScrollArea>
+            <CoursesDraggable courses={next} />
           </CardContent>
         </Card>
       </div>

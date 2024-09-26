@@ -1,5 +1,4 @@
 import { Courses } from "@prisma/client";
-import { Badge } from "../ui/badge";
 import StudyingActions from "./course-actions";
 import Tag from "../shared/tag";
 import { cn } from "@/lib/utils";
@@ -36,11 +35,13 @@ export default function CourseLine({
           <p className="text-muted-foreground">{course.platform}</p>
         ) : null}
 
-        <div className="flex gap-1 mt-2">
-          {course.tags.map((tag) => (
-            <Tag key={tag}>{tag}</Tag>
-          ))}
-        </div>
+        {course.tags.length > 0 ? (
+          <div className="flex gap-1 mt-2">
+            {course.tags.map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </div>
+        ) : null}
       </div>
       {reverse ? null : (
         <div className="flex gap-2">
