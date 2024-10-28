@@ -44,8 +44,6 @@ export async function getPreviewCoursesDTO(): Promise<{
     },
   });
 
-  console.log({ currentReading, toStudySubjects });
-
   return {
     current: currentReading,
     next: toStudySubjects,
