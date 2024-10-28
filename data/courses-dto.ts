@@ -40,9 +40,11 @@ export async function getPreviewCoursesDTO(): Promise<{
     },
     take: 3, // Limit to 3 records
     orderBy: {
-      id: "asc", // Order by id or any other field as needed
+      order: "asc",
     },
   });
+
+  console.log({ currentReading, toStudySubjects });
 
   return {
     current: currentReading,

@@ -41,7 +41,7 @@ export async function getPreviewBooksDTO(): Promise<{
     },
     take: 3, // Limit to 3 records
     orderBy: {
-      id: "asc", // Order by id or any other field as needed
+      order: "asc",
     },
   });
 
