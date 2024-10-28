@@ -20,12 +20,6 @@ export default async function Navbar() {
             <Link href="/reading" className="hover:text-primary-foreground/80">
               Books
             </Link>
-            <Link
-              href="/reminders"
-              className="hover:text-primary-foreground/80"
-            >
-              Reminders
-            </Link>
 
             <ThemeToggle />
 

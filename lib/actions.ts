@@ -322,56 +322,6 @@ export async function updateBooksOrder(books: Books[]) {
   await prisma.$transaction(transactions);
 }
 
-/* REMINDERS */
-export async function createReminderAction(formData: FormData) {
-  const title = formData.get("title") as string;
-  const dueDate = formData.get("dueDate") as string | null;
-
-  const currentUser = await getCurrentUser();
-
-  // Send the data to the server
-  let success = false;
-  try {
-    await prisma.reminders.create({
-      data: {
-        title,
-        dueDate: dueDate ? new Date(dueDate) : null,
-        userId: currentUser.id,
-      },
-    });
-
-    success = true;
-  } catch (error) {
-    success = false;
-  }
-
-  if (success) {
-    redirect("/");
-  }
-}
-
-export async function toggleReminderAction(
-  id: number,
-  done: boolean,
-  redirectTo: string
-) {
-  const currentUser = await getCurrentUser();
-
-  await prisma.reminders.update({
-    where: {
-      id,
-      userId: currentUser.id,
-    },
-    data: {
-      done: {
-        set: done,
-      },
-    },
-  });
-
-  redirect(redirectTo);
-}
-
 /* TAGS */
 
 export async function addTagAction(

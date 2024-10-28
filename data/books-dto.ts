@@ -85,6 +85,9 @@ export async function getBooksDTO(): Promise<{
       startedAt: null,
       doneAt: null,
     },
+    orderBy: {
+      order: "asc",
+    },
   });
 
   return {
