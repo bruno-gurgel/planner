@@ -14,11 +14,10 @@ import { getBookByIdDTO } from "@/data/books-dto";
 import { getCourseByIdDTO } from "@/data/courses-dto";
 import { updateBookAction } from "@/lib/actions";
 
-export default async function AddStudyingTopic({
-  params,
-}: {
-  params: { id: string };
+export default async function AddStudyingTopic(props: {
+  params: Promise<{ id: string }>;
 }) {
+  const params = await props.params;
   const { id } = params;
 
   const data = await getBookByIdDTO(Number(id));

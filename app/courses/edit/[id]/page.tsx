@@ -13,11 +13,12 @@ import { Label } from "@/components/ui/label";
 import { getCourseByIdDTO } from "@/data/courses-dto";
 import { updateCourseAction } from "@/lib/actions";
 
-export default async function EditCourse({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function EditCourse(
+  props: {
+    params: Promise<{ id: string }>;
+  }
+) {
+  const params = await props.params;
   const { id } = params;
 
   const data = await getCourseByIdDTO(Number(id));
